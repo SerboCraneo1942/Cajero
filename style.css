@@ -1,0 +1,339 @@
+/* General Styles */
+body {
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: #1a237e !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  font-weight: 500;
+}
+
+/* Banner Styles */
+.banner {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1556741533-f6acd64739a3');
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+.banner h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner p {
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.banner .btn {
+  font-size: 1.2rem;
+  padding: 10px 30px;
+  margin-top: 20px;
+}
+
+/* Features Section */
+.feature-icon {
+  font-size: 3rem;
+  color: #1a237e;
+  margin-bottom: 1rem;
+}
+
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border: none;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Footer Styles */
+footer {
+  background-color: #1a237e;
+  color: white;
+  padding: 2rem 0;
+}
+
+footer a {
+  color: #bbdefb;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: white;
+}
+
+/* Enhanced Login and Registration Forms */
+.login-card, .registration-card {
+  max-width: 500px;
+  margin: 50px auto;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white;
+  padding: 25px;
+  font-size: 1.5rem;
+  text-align: center;
+  border-bottom: none;
+}
+
+.card-body {
+  padding: 40px;
+}
+
+.form-label {
+  color: #4a4a4a;
+  font-weight: 600;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 2px solid #d1d1d1;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Button Styles with Gradients */
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  background-size: 200% auto;
+}
+
+.btn:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+  background-image: linear-gradient(to right, #667eea 0%, #764ba2 51%, #667eea 100%);
+  color: white;
+}
+
+.btn-success {
+  background-image: linear-gradient(to right, #28a745 0%, #218838 51%, #28a745 100%);
+  color: white;
+}
+
+.btn-warning {
+  background-image: linear-gradient(to right, #ffc107 0%, #e0a800 51%, #ffc107 100%);
+  color: #212529;
+}
+
+.btn-info {
+  background-image: linear-gradient(to right, #17a2b8 0%, #138496 51%, #17a2b8 100%);
+  color: white;
+}
+
+.btn-danger {
+  background-image: linear-gradient(to right, #dc3545 0%, #c82333 51%, #dc3545 100%);
+  color: white;
+}
+
+/* Colorful input fields */
+.login-card .form-control, .registration-card .form-control {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.login-card .form-control:nth-child(odd), .registration-card .form-control:nth-child(odd) {
+  border-left: 4px solid #667eea;
+}
+
+.login-card .form-control:nth-child(even), .registration-card .form-control:nth-child(even) {
+  border-left: 4px solid #764ba2;
+}
+
+/* Add some flair */
+.login-card::before, .registration-card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.login-card::after, .registration-card::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+/* Account Selection Page */
+.account-selection-card {
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.account-selection-card h2 {
+  color: #1a237e;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.account-selection-card .btn {
+  padding: 15px 0;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.account-selection-card::before,
+.account-selection-card::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.account-selection-card::before {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  top: -100px;
+  left: -100px;
+  opacity: 0.1;
+}
+
+.account-selection-card::after {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  bottom: -100px;
+  right: -100px;
+  opacity: 0.1;
+}
+
+/* Cuenta de Ahorros and Cuenta Corriente Pages */
+.option-card {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.option-card h1 {
+  color: #1a237e;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.option-card .btn {
+  padding: 15px 0;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.option-card::before,
+.option-card::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.option-card::before {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  top: -100px;
+  left: -100px;
+  opacity: 0.1;
+}
+
+.option-card::after {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  bottom: -100px;
+  right: -100px;
+  opacity: 0.1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .banner h1 {
+    font-size: 2.5rem;
+  }
+  
+  .banner p {
+    font-size: 1.2rem;
+  }
+  
+  .feature-icon {
+    font-size: 2.5rem;
+  }
+
+  .login-card, .registration-card, .account-selection-card, .option-card {
+    margin: 30px auto;
+    padding: 30px;
+  }
+
+  .card-header {
+    padding: 20px;
+    font-size: 1.3rem;
+  }
+
+  .card-body {
+    padding: 30px;
+  }
+
+  .option-card .btn {
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+}

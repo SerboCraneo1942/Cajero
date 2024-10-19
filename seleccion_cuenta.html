@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Tipo de Cuenta - Cajero Online</title>
+    <!-- Bootstrap CSS -->
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Contenedor Principal -->
+    <div class="container text-center">
+        <div class="account-selection-card bg-white">
+            <h2 class="my-4">Selecciona tu Tipo de Cuenta</h2>
+            <p class="lead">Por favor, elige el tipo de cuenta para continuar:</p>
+            <!-- Botones de Selección de Tipo de Cuenta -->
+            <div class="d-grid gap-3">
+                <button class="btn btn-primary btn-lg" id="ahorros-btn">Cuenta de Ahorros</button>
+                <button class="btn btn-success btn-lg" id="corriente-btn">Cuenta Corriente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script para Manejar la Redirección -->
+    <script>
+        // Selecciona los botones por su ID
+        const ahorroBtn = document.getElementById('ahorros-btn');
+        const corrienteBtn = document.getElementById('corriente-btn');
+
+        // Asigna el evento "click" para cada botón
+        ahorroBtn.addEventListener('click', function() {
+            window.location.href = 'cuenta_ahorro.html'; // Redirige a la página de cuenta de ahorros
+        });
+
+        corrienteBtn.addEventListener('click', function() {
+            window.location.href = 'cuenta_corriente.html'; // Redirige a la página de cuenta corriente
+        });
+    </script>
+</body>
+</html>
