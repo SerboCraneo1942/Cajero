@@ -12,6 +12,10 @@ class CuentaCorriente extends Cuenta {
             console.log("Fondos insuficientes para transferencia");
         }
     }
+    // NUEVO
+    calcularInteres(){
+        return this.saldo * 0.1;
+    }
 
 }
 export default CuentaCorriente;

@@ -7,6 +7,26 @@
   <title>deposito</title>
 </head>
 <body>
+  <!--NUEVO-->
+  <!-- Formulario para depositar dinero a una cuenta-->
+  <form action="">
+    <h2>Depósito de Dinero</h2>
+
+    <label for="tipoCuenta">Tipo de Cuenta</label>
+    <select name="tipoCuenta" id="tipoCuenta">
+       <option value="" disabled selected>Seleccione el tipo de cuenta</option> <!-- Opción por defecto -->
+        <option value="ahorros">Ahorros</option>
+        <option value="corriente">Corriente</option>
+    </select> <br><br>
+
+    <label for="cuenta">Número de Cuenta:</label>
+    <input type="text" id="cuenta" name="cuenta" placeholder="Ingrese número de cuenta" required>
+    <br><br>
+    <label for="monto">Monto a Depositar:</label>
+    <input type="number" id="monto" name="monto" placeholder="Ingrese el monto" required>
+
+    <input type="submit" value="Depositar">
+</form>
   <script type="module" src="./script.js"></script>
 </body>
 </html>

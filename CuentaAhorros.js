@@ -7,5 +7,15 @@ class CuentaAhorros extends Cuenta {
     calcularInteres(){
         return this.saldo * 0.1;
     }
+
+    //NUEVO 
+    transferir(monto, cuentaDestino) {
+        if (this.saldo >= monto) {
+            this.saldo -= monto;
+            cuentaDestino.depositar(monto);
+        } else {
+            console.log("Fondos insuficientes para transferencia");
+        }
+    }
 }
 export default CuentaAhorros;

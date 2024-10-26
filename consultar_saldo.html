@@ -9,6 +9,23 @@
 </head>
 
 <body>
+  <!-- NUEVO -->
+  <!--Formulario para consultar el saldo de una cuenta-->
+  <form action="">
+    <h2>Consulta de Saldo</h2>
+
+    <label for="tipoCuenta">Tipo de Cuenta</label>
+    <select name="tipoCuenta" id="tipoCuenta">
+       <option value="" disabled selected>Seleccione el tipo de cuenta</option> <!-- Opción por defecto -->
+        <option value="ahorros">Ahorros</option>
+        <option value="corriente">Corriente</option>
+    </select> <br><br>
+    
+    <label for="cuenta">Número de Cuenta:</label>
+    <input type="text" id="cuenta" name="cuenta" placeholder="Ingrese número de cuenta" required>
+
+    <input type="submit" value="Consultar Saldo">
+</form>
   <script type="module" src="./script.js"></script>
 </body>
 
