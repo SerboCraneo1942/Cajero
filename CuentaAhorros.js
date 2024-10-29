@@ -1,21 +1,18 @@
 import Cuenta from './Cuenta.js';
-// Subclase para Cuenta de Ahorros
-class CuentaAhorros extends Cuenta {
-    constructor(id, nombreCliente, saldo = 0) {
-        super(id, nombreCliente, saldo);
-    }
-    calcularInteres(){
-        return this.saldo * 0.1;
-    }
 
-    //NUEVO 
-    transferir(monto, cuentaDestino) {
-        if (this.saldo >= monto) {
-            this.saldo -= monto;
-            cuentaDestino.depositar(monto);
-        } else {
-            console.log("Fondos insuficientes para transferencia");
-        }
-    }
+export default class CuentaAhorros extends Cuenta {
+  constructor(id, nombreCliente, saldoInicial = 0, numeroCuenta) {
+    super(id, nombreCliente, saldoInicial, numeroCuenta);
+    this.tasaInteres = 0.05; // 5% de interés anual
+  }
+
+  calcularInteres() {
+    return this.saldo * this.tasaInteres;
+  }
+
+  aplicarInteres() {
+    const interes = this.calcularInteres();
+    this.depositar(interes);
+    return interes;
+  }
 }
-export default CuentaAhorros;

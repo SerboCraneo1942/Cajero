@@ -1,67 +1,210 @@
- import Cuenta from './Cuenta.js';
-import CuentaAhorros from './CuentaAhorros.js'
-import CuentaCorriente from './CuentaCorriente.js'
+import Cuenta from './Cuenta.js';
+import CuentaAhorros from './CuentaAhorros.js';
+import CuentaCorriente from './CuentaCorriente.js';
 
 let cuentas = [];
-let proximoIdCuenta = 1;
-// Función para crear una cuenta nueva
-function crearCuenta() {
-    const nombreCliente = document.getElementById("nombre-cliente").value;
-    const tipoCuenta = document.getElementById("tipo-cuenta").value;
+let lastAccountNumber = 1000000; // Starting account number
 
-    let nuevaCuenta;
+// Load accounts from local storage
+function loadAccounts() {
+  const storedAccounts = localStorage.getItem('cuentas');
+  if (storedAccounts) {
+    const parsedAccounts = JSON.parse(storedAccounts);
+    cuentas = parsedAccounts.map(account => {
+      if (account.type === 'ahorros') {
+        return new CuentaAhorros(account.id, account.nombreCliente, account.saldo, account.numeroCuenta);
+      } else {
+        return new CuentaCorriente(account.id, account.nombreCliente, account.saldo, account.numeroCuenta);
+      }
+    });
+    // Update lastAccountNumber based on the highest account number in stored accounts
+    lastAccountNumber = Math.max(...cuentas.map(account => parseInt(account.numeroCuenta)), lastAccountNumber);
+  }
+}
 
-    if (tipoCuenta === "corriente") {
-        nuevaCuenta = new CuentaCorriente(proximoIdCuenta++, nombreCliente);
-    } else {
-        nuevaCuenta = new CuentaAhorros(proximoIdCuenta++, nombreCliente);
-    }
-  if (!nombreClienteElement || !tipoCuentaElement) {
-    console.log("Elementos del formulario no encontrados");
-    return;
+// Save accounts to local storage
+function saveAccounts() {
+  const accountsToSave = cuentas.map(account => ({
+    id: account.id,
+    nombreCliente: account.nombreCliente,
+    saldo: account.saldo,
+    type: account instanceof CuentaAhorros ? 'ahorros' : 'corriente',
+    numeroCuenta: account.numeroCuenta
+  }));
+  localStorage.setItem('cuentas', JSON.stringify(accountsToSave));
+}
+
+// Generate a unique account number
+function generateAccountNumber() {
+  lastAccountNumber++;
+  return lastAccountNumber.toString();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadAccounts();
+
+  const loginForm = document.getElementById('login-form');
+  const registrationForm = document.getElementById('registration-form');
+  const consultaSaldoForm = document.getElementById('consultaSaldoForm');
+  const depositoForm = document.getElementById('depositoForm');
+  const retiroForm = document.getElementById('retiroForm');
+  const transaccionForm = document.getElementById('transaccionForm');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', handleLogin);
   }
 
-    cuentas.push(nuevaCuenta);
-    actualizarListaCuentas();
-}
+  if (registrationForm) {
+    registrationForm.addEventListener('submit', handleRegistration);
+  }
 
-// Función para realizar una operación
-function ejecutarOperacion() {
-    const monto = parseFloat(document.getElementById("monto").value);
-    const tipoOperacion = document.getElementById("tipo-operacion").value;
-    const idCuentaDestino = parseInt(document.getElementById("cuenta-destino").value);
+  if (consultaSaldoForm) {
+    consultaSaldoForm.addEventListener('submit', handleConsultaSaldo);
+  }
 
-    const cuenta = cuentas[0]; // Ejemplo: siempre usamos la primera cuenta
+  if (depositoForm) {
+    depositoForm.addEventListener('submit', handleDeposito);
+  }
 
-    switch (tipoOperacion) {
-        case "deposito":
-            cuenta.depositar(monto);
-            break;
-        case "retiro":
-            cuenta.retirar(monto);
-            break;
-        case "transferencia":
-            const cuentaDestino = cuentas.find(c => c.id === idCuentaDestino);
-            if (cuentaDestino) {
-                cuenta.transferir(monto, cuentaDestino);
-            } else {
-                console.log("Cuenta destino no encontrada");
-            }
-            break;
-    }
+  if (retiroForm) {
+    retiroForm.addEventListener('submit', handleRetiro);
+  }
 
-    actualizarListaCuentas();
-}
-
-// Función para actualizar la lista de cuentas
-function actualizarListaCuentas() {
-    const listaCuentas = document.getElementById("cuentas");
-    listaCuentas.innerHTML = "";
-
-    cuentas.forEach(cuenta => {
-        const li = document.createElement("li");
-        li.textContent = Cuenta #${cuenta.id}: ${cuenta.nombreCliente} - Saldo: $${cuenta.saldo};
-        listaCuentas.appendChild(li);
+  if (transaccionForm) {
+    transaccionForm.addEventListener('submit', handleTransaccion);
+  }
 });
+
+function handleLogin(event) {
+  event.preventDefault();
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const user = users.find(u => u.email === username && u.password === password);
+
+  if (user) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    window.location.href = 'seleccion_cuenta.html';
+  } else {
+    localStorage.setItem('loginResultado', 'Usuario o contraseña incorrectos');
+    window.location.reload();
+  }
 }
 
+function handleRegistration(event) {
+  event.preventDefault();
+  const nombre = document.getElementById('nombre-cliente').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const cedula = document.getElementById('cedula').value;
+  const edad = document.getElementById('edad').value;
+  const ciudad = document.getElementById('ciudad').value;
+  const pais = document.getElementById('pais').value;
+  const codigoPostal = document.getElementById('codigo_postal').value;
+  const tipoCuenta = document.getElementById('tipo-cuenta').value;
+
+  const numeroCuenta = generateAccountNumber();
+
+  const newUser = {
+    nombre,
+    email,
+    password,
+    cedula,
+    edad,
+    ciudad,
+    pais,
+    codigoPostal,
+    numeroCuenta
+  };
+
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  users.push(newUser);
+  localStorage.setItem('users', JSON.stringify(users));
+
+  const newAccount = tipoCuenta === 'ahorros'
+    ? new CuentaAhorros(cuentas.length + 1, nombre, 0, numeroCuenta)
+    : new CuentaCorriente(cuentas.length + 1, nombre, 0, numeroCuenta);
+  
+  cuentas.push(newAccount);
+  saveAccounts();
+
+  localStorage.setItem('registroResultado', `Registro exitoso. Su número de cuenta es: ${numeroCuenta}. Por favor, inicie sesión.`);
+  setTimeout(() => {
+    window.location.href = 'login.html';
+  }, 2000);
+}
+
+function handleConsultaSaldo(event) {
+  event.preventDefault();
+  const numeroCuenta = document.getElementById('cuenta').value;
+  const cuenta = cuentas.find(c => c.numeroCuenta === numeroCuenta);
+
+  if (cuenta) {
+    localStorage.setItem('consultaSaldoResultado', `El saldo de la cuenta ${numeroCuenta} es: $${cuenta.consultarSaldo()}`);
+  } else {
+    localStorage.setItem('consultaSaldoResultado', 'Cuenta no encontrada.');
+  }
+  window.location.reload();
+}
+
+function handleDeposito(event) {
+  event.preventDefault();
+  const numeroCuenta = document.getElementById('cuenta').value;
+  const monto = parseFloat(document.getElementById('monto').value);
+  const cuenta = cuentas.find(c => c.numeroCuenta === numeroCuenta);
+
+  if (cuenta) {
+    cuenta.depositar(monto);
+    saveAccounts();
+    localStorage.setItem('depositoResultado', `Depósito realizado. Nuevo saldo: $${cuenta.consultarSaldo()}`);
+  } else {
+    localStorage.setItem('depositoResultado', 'Cuenta no encontrada.');
+  }
+  window.location.reload();
+}
+
+function handleRetiro(event) {
+  event.preventDefault();
+  const numeroCuenta = document.getElementById('cuenta').value;
+  const monto = parseFloat(document.getElementById('monto').value);
+  const cuenta = cuentas.find(c => c.numeroCuenta === numeroCuenta);
+
+  if (cuenta) {
+    if (cuenta.retirar(monto)) {
+      saveAccounts();
+      localStorage.setItem('retiroResultado', `Retiro realizado. Nuevo saldo: $${cuenta.consultarSaldo()}`);
+    } else {
+      localStorage.setItem('retiroResultado', 'Fondos insuficientes para realizar el retiro.');
+    }
+  } else {
+    localStorage.setItem('retiroResultado', 'Cuenta no encontrada.');
+  }
+  window.location.reload();
+}
+
+function handleTransaccion(event) {
+  event.preventDefault();
+  const cuentaOrigenId = document.getElementById('cuentaOrigen').value;
+  const cuentaDestinoId = document.getElementById('cuentaDestino').value;
+  const monto = parseFloat(document.getElementById('monto').value);
+
+  const cuentaOrigen = cuentas.find(c => c.numeroCuenta === cuentaOrigenId);
+  const cuentaDestino = cuentas.find(c => c.numeroCuenta === cuentaDestinoId);
+
+  if (cuentaOrigen && cuentaDestino) {
+    if (cuentaOrigen.saldo >= monto) {
+      cuentaOrigen.retirar(monto);
+      cuentaDestino.depositar(monto);
+      saveAccounts();
+      localStorage.setItem('transaccionResultado', `Transacción realizada exitosamente. 
+        Nuevo saldo de la cuenta origen: $${cuentaOrigen.consultarSaldo()}
+        Nuevo saldo de la cuenta destino: $${cuentaDestino.consultarSaldo()}`);
+    } else {
+      localStorage.setItem('transaccionResultado', 'Fondos insuficientes para realizar la transacción.');
+    }
+  } else {
+    localStorage.setItem('transaccionResultado', 'Una o ambas cuentas no fueron encontradas.');
+  }
+  window.location.reload();
+}

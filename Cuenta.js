@@ -1,24 +1,24 @@
-// Clase base para una Cuenta Bancaria
-class Cuenta {
-    constructor(id, nombreCliente, saldo = 0) {
-        this.id = id;
-        this.nombreCliente = nombreCliente;
-        this.saldo = saldo;
+export default class Cuenta {
+    constructor(id, nombreCliente, saldoInicial = 0, numeroCuenta) {
+      this.id = id;
+      this.nombreCliente = nombreCliente;
+      this.saldo = saldoInicial;
+      this.numeroCuenta = numeroCuenta;
     }
-
+  
     depositar(monto) {
-        this.saldo += monto;
+      this.saldo += monto;
     }
-
+  
     retirar(monto) {
-        if (monto <= this.saldo) {
-            this.saldo -= monto;
-        } else {
-            console.log("Fondos insuficientes");
-        }
+      if (this.saldo >= monto) {
+        this.saldo -= monto;
+        return true;
+      }
+      return false;
     }
-    consultarSaldo(){
-        return this.saldo;
+  
+    consultarSaldo() {
+      return this.saldo;
     }
-}
-export default Cuenta;
+  }

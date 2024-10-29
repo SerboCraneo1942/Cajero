@@ -1,34 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>transaccion</title>
+  <title>Transacción - Cajero Online</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <!-- NUEVO -->
-  <!-- Formulario para la transacción/transferencia -->
-<h2>Transacción de Dinero</h2>
-  <form action="" id="transaccionForm">
-    <label for="cuentaOrigen">Cuenta Origen:</label>
-    <input type="text" id="cuentaOrigen" name="cuentaOrigen" placeholder="Número de cuenta de origen"><br><br>
-    
-    <label for="cuentaDestino">Cuenta Destino:</label>
-    <input type="text" id="cuentaDestino" name="cuentaDestino" placeholder="Número de cuenta de destino"><br><br>
-    
-    <label for="tipoCuenta">Tipo de Cuenta Destino</label>
-      <select name="tipoCuenta" id="tipoCuenta">
-         <option value="" disabled selected>Seleccione el tipo de cuenta</option> <!-- Opción por defecto -->
+  <div class="container">
+    <h2 class="my-4">Transacción de Dinero</h2>
+    <form id="transaccionForm">
+      <div class="mb-3">
+        <label for="cuentaOrigen" class="form-label">Cuenta Origen:</label>
+        <input type="text" class="form-control" id="cuentaOrigen" name="cuentaOrigen" placeholder="Número de cuenta de origen" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="cuentaDestino" class="form-label">Cuenta Destino:</label>
+        <input type="text" class="form-control" id="cuentaDestino" name="cuentaDestino" placeholder="Número de cuenta de destino" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="tipoCuenta" class="form-label">Tipo de Cuenta Destino</label>
+        <select class="form-select" name="tipoCuenta" id="tipoCuenta" required>
+          <option value="" disabled selected>Seleccione el tipo de cuenta</option>
           <option value="ahorros">Ahorros</option>
           <option value="corriente">Corriente</option>
-      </select> <br><br>
-                
-        <label for="monto">Monto a Transferir:</label>
-        <input type="number" id="monto" name="monto" placeholder="Ingrese monto">
+        </select>
+      </div>
+              
+      <div class="mb-3">
+        <label for="monto" class="form-label">Monto a Transferir:</label>
+        <input type="number" class="form-control" id="monto" name="monto" placeholder="Ingrese monto" required>
+      </div>
 
-        <input type="submit" value="Realizar Transacción">  <!--Acá enlazar el JS ID: Función Onclick: Metodo (Llamamos el metodo=nameFunction)-->
-    </form> 
+      <button type="submit" class="btn btn-primary">Realizar Transacción</button>
+    </form>
+
+    <div id="resultado" class="mt-4"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module" src="./script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const resultado = localStorage.getItem('transaccionResultado');
+      if (resultado) {
+        document.getElementById('resultado').innerHTML = `<div class="alert alert-info">${resultado}</div>`;
+        localStorage.removeItem('transaccionResultado');
+      }
+    });
+  </script>
 </body>
 </html>
