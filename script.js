@@ -8,6 +8,7 @@ let lastAccountNumber = 1000000; // Starting account number
 // Load accounts from local storage
 function loadAccounts() {
   const storedAccounts = localStorage.getItem('cuentas');
+  console.log("Cuentas después de cargar:", cuentas);
   if (storedAccounts) {
     const parsedAccounts = JSON.parse(storedAccounts);
     cuentas = parsedAccounts.map(account => {
@@ -132,22 +133,31 @@ function handleRegistration(event) {
 
 function handleConsultaSaldo(event) {
   event.preventDefault();
+  
   const numeroCuenta = document.getElementById('cuenta').value;
-  const cuenta = cuentas.find(c => c.numeroCuenta === numeroCuenta);
+  
+  console.log("Número de cuenta ingresado:", numeroCuenta);
+  console.log("Array de cuentas cargado:", cuentas);
+
+  const cuenta = cuentas.find(c => String(c.numeroCuenta) === String(numeroCuenta));
+
+  const resultadoDiv = document.getElementById('resultado');
 
   if (cuenta) {
-    localStorage.setItem('consultaSaldoResultado', `El saldo de la cuenta ${numeroCuenta} es: $${cuenta.consultarSaldo()}`);
+    resultadoDiv.innerHTML = `<div class="alert alert-info">El saldo de la cuenta ${numeroCuenta} es: $${cuenta.consultarSaldo()}</div>`;
+    console.log("Cuenta encontrada:", cuenta); 
   } else {
-    localStorage.setItem('consultaSaldoResultado', 'Cuenta no encontrada.');
+    resultadoDiv.innerHTML = '<div class="alert alert-danger">Cuenta no encontrada.</div>';
+    console.log("Error: Cuenta no encontrada");
   }
-  window.location.reload();
 }
+
 
 function handleDeposito(event) {
   event.preventDefault();
   const numeroCuenta = document.getElementById('cuenta').value;
   const monto = parseFloat(document.getElementById('monto').value);
-  const cuenta = cuentas.find(c => c.numeroCuenta === numeroCuenta);
+  const cuenta = cuentas.find(c => String(c.numeroCuenta) === String(numeroCuenta));
 
   if (cuenta) {
     cuenta.depositar(monto);
@@ -163,7 +173,7 @@ function handleRetiro(event) {
   event.preventDefault();
   const numeroCuenta = document.getElementById('cuenta').value;
   const monto = parseFloat(document.getElementById('monto').value);
-  const cuenta = cuentas.find(c => c.numeroCuenta === numeroCuenta);
+  const cuenta = cuentas.find(c => String(c.numeroCuenta) === String(numeroCuenta));
 
   if (cuenta) {
     if (cuenta.retirar(monto)) {
@@ -183,8 +193,9 @@ function handleTransaccion(event) {
   const cuentaOrigenId = document.getElementById('cuentaOrigen').value;
   const cuentaDestinoId = document.getElementById('cuentaDestino').value;
   const monto = parseFloat(document.getElementById('monto').value);
-  const cuentaOrigen = cuentas.find(c => c.numeroCuenta === cuentaOrigenId);
-  const cuentaDestino = cuentas.find(c => c.numeroCuenta === cuentaDestinoId);
+  const cuentaOrigen = cuentas.find(c => String(c.numeroCuenta) === String(cuentaOrigenId));
+  const cuentaDestino = cuentas.find(c => String(c.numeroCuenta) === String(cuentaDestinoId));
+
 
   if (cuentaOrigen && cuentaDestino) {
     if (cuentaOrigen.saldo >= monto) {
