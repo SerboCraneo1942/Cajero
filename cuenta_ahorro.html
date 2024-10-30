@@ -4,27 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuenta de Ahorros - Cajero Online</title>
-    <!-- Bootstrap CSS -->
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <!-- Contenedor Principal -->
-    <div class="container text-center">
-        <h1 class="my-4">Cuenta de Ahorros</h1>
-        <p class="lead">Selecciona una opción para gestionar tu cuenta de ahorros:</p>
-        <!-- Opciones de la Cuenta -->
-        <div class="option-card bg-white">
-            <div class="d-grid gap-2">
-                <a href="consultar_saldo.html" class="btn btn-primary btn-lg">Consultar Saldo</a>
-                <a href="deposito.html" class="btn btn-success btn-lg">Realizar Depósito</a>
-                <a href="retiro.html" class="btn btn-warning btn-lg">Realizar Retiro</a>
-                <a href="calcular_interes.html" class="btn btn-info btn-lg">Calcular Interés</a>
+<body class="d-flex flex-column min-vh-100">
+    <div class="container flex-grow-1">
+        <h1 class="text-center my-4">Cuenta de Ahorros</h1>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Información de la Cuenta</h5>
+                <p class="card-text">Número de Cuenta: <span id="numeroCuenta" class="fw-bold"></span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <a href="consultar_saldo.html" class="btn btn-info btn-lg btn-block w-100">Consultar Saldo</a>
+            </div>
+            <div class="col-md-6 mb-3">
+                <a href="deposito.html" class="btn btn-success btn-lg btn-block w-100">Realizar Depósito</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <a href="retiro.html" class="btn btn-warning btn-lg btn-block w-100">Realizar Retiro</a>
+            </div>
+            <div class="col-md-6 mb-3">
+                <a href="transaccion.html" class="btn btn-secondary btn-lg btn-block w-100">Realizar Transacción</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <a href="calcular_interes.html" class="btn btn-primary btn-lg btn-block w-100">Calcular Interés</a>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS y dependencias -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2023 Cajero Online. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="index.html" class="btn btn-outline-primary">Volver al Inicio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const numeroCuentaElement = document.getElementById('numeroCuenta');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (currentUser && currentUser.numeroCuenta) {
+                numeroCuentaElement.textContent = currentUser.numeroCuenta;
+            } else {
+                numeroCuentaElement.textContent = 'No disponible';
+                numeroCuentaElement.classList.add('text-danger');
+            }
+        });
+    </script>
 </body>
 </html>

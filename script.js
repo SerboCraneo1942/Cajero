@@ -13,14 +13,14 @@ function loadAccounts() {
     cuentas = parsedAccounts.map(account => {
       if (account.type === 'ahorros') {
         return new CuentaAhorros(account.id, account.nombreCliente, account.saldo, account.numeroCuenta);
-      } else {
+      } else if (account.type === 'corriente') {
         return new CuentaCorriente(account.id, account.nombreCliente, account.saldo, account.numeroCuenta);
       }
     });
-    // Update lastAccountNumber based on the highest account number in stored accounts
     lastAccountNumber = Math.max(...cuentas.map(account => parseInt(account.numeroCuenta)), lastAccountNumber);
   }
 }
+
 
 // Save accounts to local storage
 function saveAccounts() {
@@ -77,11 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleLogin(event) {
   event.preventDefault();
-  const username = document.getElementById('username').value;
+  const email = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
-  const user = users.find(u => u.email === username && u.password === password);
+  const user = users.find(u => u.email === email && u.password === password);
 
   if (user) {
     localStorage.setItem('currentUser', JSON.stringify(user));
@@ -102,7 +102,6 @@ function handleRegistration(event) {
   const ciudad = document.getElementById('ciudad').value;
   const pais = document.getElementById('pais').value;
   const codigoPostal = document.getElementById('codigo_postal').value;
-  const tipoCuenta = document.getElementById('tipo-cuenta').value;
 
   const numeroCuenta = generateAccountNumber();
 
@@ -122,18 +121,14 @@ function handleRegistration(event) {
   users.push(newUser);
   localStorage.setItem('users', JSON.stringify(users));
 
-  const newAccount = tipoCuenta === 'ahorros'
-    ? new CuentaAhorros(cuentas.length + 1, nombre, 0, numeroCuenta)
-    : new CuentaCorriente(cuentas.length + 1, nombre, 0, numeroCuenta);
+  localStorage.setItem('currentUser', JSON.stringify(newUser));
+  localStorage.setItem('registroResultado', `Registro exitoso. Su número de cuenta es: ${numeroCuenta}.`);
   
-  cuentas.push(newAccount);
-  saveAccounts();
-
-  localStorage.setItem('registroResultado', `Registro exitoso. Su número de cuenta es: ${numeroCuenta}. Por favor, inicie sesión.`);
   setTimeout(() => {
-    window.location.href = 'login.html';
-  }, 2000);
+    window.location.href = 'seleccion_cuenta.html';
+}, 100);
 }
+
 
 function handleConsultaSaldo(event) {
   event.preventDefault();
@@ -188,7 +183,6 @@ function handleTransaccion(event) {
   const cuentaOrigenId = document.getElementById('cuentaOrigen').value;
   const cuentaDestinoId = document.getElementById('cuentaDestino').value;
   const monto = parseFloat(document.getElementById('monto').value);
-
   const cuentaOrigen = cuentas.find(c => c.numeroCuenta === cuentaOrigenId);
   const cuentaDestino = cuentas.find(c => c.numeroCuenta === cuentaDestinoId);
 

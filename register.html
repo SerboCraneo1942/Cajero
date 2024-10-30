@@ -9,14 +9,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="card registration-card">
+        <div class="card registration-card mt-5">
             <div class="card-header bg-primary text-white text-center">
                 <h3>Formulario de Registro</h3>
             </div>
             <div class="card-body">
                 <form id="registration-form">
                     <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre Completo</label>
+                        <label for="nombre-cliente" class="form-label">Nombre Completo</label>
                         <input type="text" class="form-control" id="nombre-cliente" required>
                     </div>
                     <div class="mb-3">
@@ -46,14 +46,6 @@
                     <div class="mb-3">
                         <label for="codigo_postal" class="form-label">Código Postal</label>
                         <input type="text" class="form-control" id="codigo_postal" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tipo_cuenta" class="form-label">Tipo de Cuenta</label>
-                        <select class="form-select" id="tipo-cuenta" required>
-                            <option value="" disabled selected>Selecciona un tipo de cuenta</option>
-                            <option value="ahorros">Cuenta de Ahorros</option>
-                            <option value="corriente">Cuenta Corriente</option>
-                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Registrar</button>
                 </form>

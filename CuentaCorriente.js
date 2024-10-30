@@ -14,8 +14,6 @@ export default class CuentaCorriente extends Cuenta {
     return false;
   }
   calcularInteres() {
-    // Si el saldo es positivo, calculamos el interés sobre el saldo
-    // Si el saldo es negativo (en sobregiro), no se calcula interés
     if (this.saldo > 0) {
       return this.saldo * this.tasaInteres;
     } else {
