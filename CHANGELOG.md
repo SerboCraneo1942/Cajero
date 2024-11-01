@@ -32,8 +32,8 @@ CAMBIO NÚMERO 001:
   -CAMBIOS REALIZADOS:
       se creo el style a todos los formularios anteriormente credos, se modifico fuerte mente el script.js (clase main) para agregar correctamente el DOM y el local storage, se realizo la coneccion de todo y todos en cada uno de los html, se realizaron modificaciones a los metodos para integrarlos mejor al DOM y al local storage, se recreo el metodo para calcular interes ya que estaba super sencillo, nunca se habia declarado la caracteristica de el numero de cuenta se declaro pero falta mostrarle el numero de cuenta al usuario despues de registrarse.
  -CAMBIOS NECESARIOS:
-     Se requiere crear una alerta despues del registro que muestre cual es el numero de cuenta de el usuario.
-<<<<<<< HEAD
-   
-=======
->>>>>>> 80a6b37676d91be0ebdbf0b22cef97f113093584
+     Se requiere crear una alerta despues del registro que muestre cual es el numero de cuenta de el usuario
+//////////////////////////////////////////////////////////_------------------------------------------------------///////////////////////////
+-amado la come
+
+
